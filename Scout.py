@@ -8,8 +8,8 @@ Written by Collin Roess
 
 import pygame, random
 
-display_width = 800
-display_height = 600
+display_width = 1000
+display_height = 536
 
 black = (0,0,0)
 white = (255,255,255)
@@ -21,6 +21,10 @@ purple = (175,0,175)
 dogImg = pygame.image.load('dogimage.png')
 revdog = pygame.image.load('dogimageright.png')
 dogimg_width = 110
+background = pygame.image.load('livingroom.png')
+backgroundRect = background.get_rect()
+food = pygame.image.load('food.png')
+
 
 
 def game_loop():	
@@ -30,7 +34,7 @@ def game_loop():
 
 	pygame.init()
 	gameDisplay = pygame.display.set_mode((display_width, display_height))
-	pygame.display.set_caption('')
+	pygame.display.set_caption('Scout')
 	clock = pygame.time.Clock()
 	rev=False
 	def dog(x, y):
@@ -53,16 +57,16 @@ def game_loop():
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT:
 					rev=False
-					x_change = -5
+					x_change = -4
 				elif event.key == pygame.K_RIGHT:
 					rev=True
-					x_change = 5
+					x_change = 4
 				else:
 					rev=random.choice([True,False])
 					if rev==True:
-						x_change = 5
+						x_change = 4
 					else:
-						x_change = -5
+						x_change = -4
 					
 			if event.type == pygame.KEYUP:
 				x_change=0
@@ -73,16 +77,17 @@ def game_loop():
 		
 		if x > display_width -dogimg_width:
 			rev = False
-			x_change = -5
+			x_change = -4
 		if x<=0:
 			rev = True
-			x_change = 5
+			x_change = 4
 
 			
-		gameDisplay.fill(purple)	
-		dog(x,y)	
+		gameDisplay.blit(background, (0, 0))	
+		dog(x,y)
+		
 		pygame.display.update()
-		clock.tick(60)
+		clock.tick(100)
 		
 
 	
